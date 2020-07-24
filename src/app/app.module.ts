@@ -5,12 +5,12 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
+import { FormsModule } from '@angular/forms'
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { HttpClientModule } from '@angular/common/http';
-import { apiserver } from './list-page/apiserver';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,11 +21,11 @@ import { apiserver } from './list-page/apiserver';
     AppRoutingModule,
     NgxDatatableModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    apiserver,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

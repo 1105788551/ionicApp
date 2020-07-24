@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Task } from '../list-page/Task'
 
 @Component({
   selector: 'app-newpage',
@@ -6,11 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./newpage.page.scss'],
 })
 export class NewpagePage implements OnInit {
-  public newTitle = '新增' 
+
+  newTempData : Task
+
   constructor() { }
 
   ngOnInit() {
-
+    
   }
 
 }

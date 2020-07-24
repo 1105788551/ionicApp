@@ -8,10 +8,14 @@ const routes: Routes = [
     path: '',
     component: ListPagePage
   },
-  {
+  /*{
     path: 'newpage/new',
     loadChildren: () => import('../newpage/newpage.module').then( m => m.NewpagePageModule)
   },
+  {
+    path: 'detailpage',
+    loadChildren: () => import('../detailpage/detailpage.module').then( m => m.DetailpagePageModule)
+  },*/
 ];
 
 @NgModule({

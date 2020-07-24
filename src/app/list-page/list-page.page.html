@@ -3,24 +3,22 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ listTitle }}</ion-title>
+    <ion-title>列表</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content >
     <ion-row>
-      <ion-col size = '5.6'>名称</ion-col>
+      <ion-col size = '4.5'>名称</ion-col>
       <ion-col >日期</ion-col>
     </ion-row>
 
-    <ion-row *ngFor = "let i of dataList">
+    <ion-row *ngFor = "let i of this.api.getAllValue()">
       <ion-col col-auto text-center>{{ i.title }}</ion-col>
-      <ion-col col-auto text-center>{{ i.date }}</ion-col>
-      <ion-button (click) = "editButton()" color = "secondary">Edit</ion-button>
+      <ion-col col-auto text-center>{{ i.date.substr(0,10) }}</ion-col>
+      <ion-button (click) = "editButton(i)" color = "secondary">Edit</ion-button>
+      <ion-button style="width:65px" (click) = "deleteButton(i)" color = "danger">Delete</ion-button>
     </ion-row>
 
-    <ion-row>
-      <ion-button color = "secondary">update</ion-button>
-      <ion-button color = "secondary">delete</ion-button>
-    </ion-row>
+    <ion-button (click) = "testB()" color = "danger">Test</ion-button>
 </ion-content>
