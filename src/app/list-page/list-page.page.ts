@@ -23,10 +23,6 @@ export class ListPagePage implements OnInit {
     this.api.localGet()
     location.reload()
   }
-
-  public testB(){
-    console.log(this.api.getNewId())
-  }
  
   constructor(private route: Router, public api:TaskService) {
   }

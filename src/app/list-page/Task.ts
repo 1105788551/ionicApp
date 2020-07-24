@@ -1,5 +1,5 @@
 export class Task{
-    id : number;
+    id ?: Number;
     title : String;
     date : Date;
     description : String

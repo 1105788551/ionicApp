@@ -10,19 +10,17 @@
 <ion-content>
   <ion-col>
 
-     <!--  <ion-row row-auto><strong>名稱:</strong><input [(ngModel)]="this.newData.title" placeholder="title">
+    <ion-row row-auto><strong>名稱:</strong><input [(ngModel)]="this.api.getTemp().title" placeholder="title">
     </ion-row>
 
-    <ion-row row-auto><strong>日期:</strong><input [(ngModel)]="this.newData.date" type="date"/>
+    <ion-row row-auto><strong>日期:</strong><input [(ngModel)]="this.api.getTemp().date" type="date"/>
     </ion-row>
 
-    <ion-row row-auto><strong>內容:</strong><input [(ngModel)]="this.newData.description" placeholder="description">
+    <ion-row row-auto><strong>內容:</strong><input [(ngModel)]="this.api.getTemp().description" placeholder="id">
     </ion-row>
 
-    <ion-button (click) = "updateButton()" color = "secondary" class="button button-full button-positive">update</ion-button>
-
-    <ion-button (click) = "cancelButton()" color = "secondary" class="button button-full button-positive">cancel</ion-button>
-   -->
+    <ion-button (click) = "uploadButton()" color = "secondary" class="button button-full button-positive">新建</ion-button>
+    <ion-button (click) = "goBack()" color = "danger" class="button button-full button-positive">返回</ion-button>
 
   </ion-col>
 </ion-content>
