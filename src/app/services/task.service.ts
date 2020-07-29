@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Task } from '../list-page/Task'
-import { title } from 'process';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +12,11 @@ export class TaskService {
   tempTask : Task
   constructor(public http:HttpClient) {
   }
+
+  /*public success(data){
+    console.log(data)
+    this.dataList = data
+  }*/
 
   public localGet(){
     this.http.get<any>('http://10.1.4.104:8082/tasks').subscribe(data => {
@@ -36,8 +40,8 @@ export class TaskService {
   this.http.put<Task>('http://10.1.4.104:8082/tasks/' + this.currentTask.id, 
     JSON.stringify(this.currentTask),{headers:header}).subscribe(data => {
       console.log(data);
+      this.localGet()
     });
-  this.localGet()
   }
 
   public delete(){
@@ -59,7 +63,7 @@ export class TaskService {
   }
     
   public upload(){
-    const header = new HttpHeaders().append('Content-Type' , 'application/json');
+  const header = new HttpHeaders().append('Content-Type' , 'application/json');
   this.http.post<Task>('http://10.1.4.104:8082/tasks', 
     JSON.stringify(this.tempTask),{headers:header}).subscribe(data => {
       console.log(data);

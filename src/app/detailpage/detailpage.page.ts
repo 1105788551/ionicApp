@@ -14,13 +14,14 @@ export class DetailpagePage implements OnInit {
   }
 
   public cancelButton(){
+    this.api.localGet()
     this.root.navigate(['list-page/list'])
   }
 
   public updateButton(){
     this.api.update()
-    this.api.localGet()
     this.root.navigate(['list-page/list'])
+    this.api.localGet()
   }
 
   ngOnInit() {

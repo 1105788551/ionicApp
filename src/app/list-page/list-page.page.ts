@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnChanges} from '@angular/core';
 import { Router } from '@angular/router';
 import { TaskService } from '../services/task.service'
 
@@ -8,8 +8,6 @@ import { TaskService } from '../services/task.service'
   styleUrls: ['./list-page.page.scss'],
 })
 export class ListPagePage implements OnInit {
-
-  selectid : Number
 
   public editButton(i){
     this.route.navigate(['/detailpage'])
@@ -30,4 +28,5 @@ export class ListPagePage implements OnInit {
   ngOnInit() {
     this.api.localGet()
   }
+  
 }
