@@ -16,8 +16,8 @@
     <ion-row *ngFor = "let i of this.api.getAllValue()">
       <ion-col col-auto text-center>{{ i.title }}</ion-col>
       <ion-col col-auto text-center>{{ i.date.substr(0,10) }}</ion-col>
-      <ion-button (click) = "editButton(i)" color = "secondary">Edit</ion-button>
-      <ion-button style="width:65px" (click) = "deleteButton(i)" color = "danger">Delete</ion-button>
+      <ion-button (click) = "editButton(i)" color = "warning"><ion-icon name = "create"></ion-icon></ion-button>
+      <ion-button style="width:65px" (click) = "delete(i)" color = "danger"><ion-icon name = "close"></ion-icon></ion-button>
     </ion-row>
     
 </ion-content>
