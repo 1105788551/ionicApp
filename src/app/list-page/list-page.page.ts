@@ -51,4 +51,8 @@ export class ListPagePage implements OnInit {
     this.api.localGet()
   }
   
+  ngAfterContentInit(){
+    this.api.localGet()
+  }
+
 }
