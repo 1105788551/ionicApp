@@ -10,16 +10,34 @@
 <ion-content>
   <ion-col>
 
-    <ion-row row-auto><strong>名稱:</strong><input [(ngModel)]="this.api.getTemp().title" placeholder="title">
+    <ion-row row-auto>
+      <strong>名稱:</strong><input [(ngModel)]="this.api.getTemp().title" placeholder="title">
     </ion-row>
 
-    <ion-row row-auto><strong>日期:</strong><input [(ngModel)]="this.api.getTemp().date" type="date"/>
+    <div *ngIf="this.api.emptyTitle()">
+      <ion-label color="danger">你未输入标题</ion-label>
+    </div>
+
+    <ion-row row-auto>
+      <strong>日期:</strong><input [(ngModel)]="this.api.getTemp().date" type="date"/>
     </ion-row>
 
-    <ion-row row-auto><strong>內容:</strong><input [(ngModel)]="this.api.getTemp().description" placeholder="id">
+    <div *ngIf="this.api.emptyDate()">
+      <ion-label class="text-center" color = "danger">你未输入日期</ion-label>
+    </div>
+
+    <ion-row row-auto>
+      <strong>內容:</strong><input [(ngModel)]="this.api.getTemp().description" placeholder="id">
     </ion-row>
 
-    <ion-button (click) = "uploadButton()" color = "secondary" class="button button-full button-positive">新建</ion-button>
+    <div *ngIf="this.api.emptyContent()">
+      <ion-label class="text-center" color = "danger">你未输入内容</ion-label>
+    </div>
+
+    <ion-button (click) = "uploadButton()" color = "secondary" class="button button-full button-positive"
+    [disabled] = " this.api.getTemp().title == '' || this.api.getTemp().description == '' 
+    || this.api.getTemp().date.toString === dateTemp.toString ">新建</ion-button>
+    
     <ion-button (click) = "goBack()" color = "danger" class="button button-full button-positive">返回</ion-button>
 
   </ion-col>

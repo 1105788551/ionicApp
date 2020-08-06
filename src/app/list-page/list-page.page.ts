@@ -11,10 +11,62 @@ import { AlertController } from '@ionic/angular';
 })
 export class ListPagePage implements OnInit {
 
+  connet = true
+  pageSize = 5
+  tempList = []
+  currentPage = 0
+
+  public itemNumberChoser(){
+    console.log(this.pageSize)
+    let item = this.getItem()
+    while(item > this.api.dataList.length){
+      this.currentPage--
+      item = this.getItem()
+      console.log(item)
+    }
+    this.getData()
+  }
+
+  public getItem(){
+    return this.currentPage * this.pageSize
+  }
+
+  public nextPage(){
+    this.currentPage++;
+    let item = this.getItem()
+    if(item > this.api.dataList.length){
+      this.currentPage--;
+    }
+    console.log(this.getItem())
+    this.getData()
+  }
+
+  public prevPage(){
+    this.currentPage--;
+    if(this.currentPage < 0){
+      this.currentPage++;
+    }
+    this.getData()
+  }
+
+  public getData(){
+    this.tempList = []
+    let tempPage = this.getItem()
+    for(let i = 0; i < this.pageSize; i++){
+      if(this.api.dataList[i + tempPage] != null){
+        this.tempList[i] = this.api.dataList[i + tempPage]
+      }
+    }
+  }
+
   public editButton(i){
-    this.route.navigate(['/detailpage'])
-    this.api.setCurrentTask(i)
-    console.log(this.api.getCurrentTask())
+    this.api.getData().then(()=>{
+      if(this.api.connetFlag){
+        this.route.navigate(['/detailpage'])
+        this.api.setCurrentTask(i)
+        console.log(this.api.getCurrentTask())
+      }
+    })
   }
 
   async delete(index) {
@@ -38,21 +90,33 @@ export class ListPagePage implements OnInit {
   }
 
   public deleteFunction(i){
-    this.api.setCurrentTask(i)
-    this.api.delete()
-    this.api.localGet()
-    location.reload()
+    this.api.getData().then(()=>{
+      if(this.api.connetFlag){
+        this.api.setCurrentTask(i)
+        this.api.delete()
+      }
+    })  
   }
  
-  constructor(private route: Router, public api:TaskService,public alc:AlertController) {
+  constructor(private route: Router, public api:TaskService,public alc:AlertController, ) {
   }
 
   ngOnInit() {
-    this.api.localGet()
+    this.connet = false
+    this.api.getData().then(()=>{
+      if(this.api.connetFlag){
+        this.getData()
+        console.log("还在运行")
+      }
+    })
   }
-  
   ngAfterContentInit(){
-    this.api.localGet()
+    if(this.connet){
+      this.api.getData().then(()=>{
+        if(!this.api.connetFlag){
+          
+        }
+      })
+    }
   }
-
 }
