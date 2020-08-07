@@ -4,6 +4,7 @@ import { Task } from '../list-page/Task'
 import { Network } from '@ionic-native/network/ngx';
 import { AlertController } from '@ionic/angular';
 import { isTabSwitch } from '@ionic/angular/directives/navigation/stack-utils';
+import { promise } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class TaskService {
     try{
       let data = await this.localGet()
       let j = 0
+      this.dataList = []
       for(let i of data){
         this.dataList[j] = i
         j++
@@ -40,8 +42,6 @@ export class TaskService {
     
   }
 
-
-
   public localGet(){
     let data = this.http.get<any>('http://10.1.4.104:8082/tasks').toPromise()
       console.log(data)
@@ -54,6 +54,7 @@ export class TaskService {
   }
 
   public setCurrentTask(i){
+    console.log(i)
     this.currentTask = i
   }
 
@@ -74,10 +75,21 @@ export class TaskService {
   }
 
   public delete(){
-    this.http.delete<Task>('http://10.1.4.104:8082/tasks/' + this.currentTask.id).subscribe(data => {
-      console.log(data);
-      this.getData()
-    });
+    let deleteData = this.http.delete<Task>('http://10.1.4.104:8082/tasks/' + this.currentTask.id).toPromise()
+    console.log("云端删除完成")
+    return deleteData
+  }
+
+  async localDelete(){
+    try{
+      let pSucess = await this.delete()
+      console.log("本地删除完成")
+    }
+    catch(err){
+      console.log("数据删除失败")
+      this.connetFlag = false;
+      this.reConnet()
+    }
   }
 
   public setTemp(){

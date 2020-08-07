@@ -26,7 +26,7 @@ export class NewpagePage implements OnInit {
 
   public goBack(){
     this.api.emptyTitle()
-    this.api.localGet()
+    this.api.getData()
     this.root.navigate(['list-page/list'])
   }
 

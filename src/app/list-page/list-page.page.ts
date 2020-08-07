@@ -24,7 +24,7 @@ export class ListPagePage implements OnInit {
       item = this.getItem()
       console.log(item)
     }
-    this.getData()
+    this.getLocalData()
   }
 
   public getItem(){
@@ -34,11 +34,11 @@ export class ListPagePage implements OnInit {
   public nextPage(){
     this.currentPage++;
     let item = this.getItem()
-    if(item > this.api.dataList.length){
+    if(item >= this.api.dataList.length){
       this.currentPage--;
     }
     console.log(this.getItem())
-    this.getData()
+    this.getLocalData()
   }
 
   public prevPage(){
@@ -46,10 +46,10 @@ export class ListPagePage implements OnInit {
     if(this.currentPage < 0){
       this.currentPage++;
     }
-    this.getData()
+    this.getLocalData()
   }
 
-  public getData(){
+  public getLocalData(){
     this.tempList = []
     let tempPage = this.getItem()
     for(let i = 0; i < this.pageSize; i++){
@@ -57,6 +57,7 @@ export class ListPagePage implements OnInit {
         this.tempList[i] = this.api.dataList[i + tempPage]
       }
     }
+    console.log("list页面完成")
   }
 
   public editButton(i){
@@ -90,11 +91,13 @@ export class ListPagePage implements OnInit {
   }
 
   public deleteFunction(i){
-    this.api.getData().then(()=>{
-      if(this.api.connetFlag){
-        this.api.setCurrentTask(i)
-        this.api.delete()
-      }
+    this.api.setCurrentTask(i)
+    this.api.localDelete().then(()=>{
+      this.api.getData().then(()=>{
+        if(this.api.connetFlag){
+          this.getLocalData()
+        }
+      })  
     })  
   }
  
@@ -105,7 +108,7 @@ export class ListPagePage implements OnInit {
     this.connet = false
     this.api.getData().then(()=>{
       if(this.api.connetFlag){
-        this.getData()
+        this.getLocalData()
         console.log("还在运行")
       }
     })
